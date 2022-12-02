@@ -1,0 +1,34 @@
+<Configuration xmlns="http://logging.apache.org/log4j/2.0/config" packages="de.gugorrex.logging" status="warn">
+    <CustomLevels>
+        <CustomLevel name="NOTICE" intLevel="50"/>
+    </CustomLevels>
+    <Appenders>
+        <Console name="console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d %p %c{1.} [%t] %m%n"/>
+            <Filters>
+                <ThresholdFilter level="NOTICE" onMatch="DENY" onMismatch="ACCEPT"/>
+            </Filters>
+        </Console>
+        <GuiAppender name="gui" otherAttribute="...">
+            <PatternLayout pattern="%d %p %c{1.} [%t] %m%n"/>
+            <Filters>
+                <ThresholdFilter level="NOTICE" onMatch="ACCEPT"/>
+            </Filters>
+        </GuiAppender>
+        <File name="file" filename="logs/${date:yyyy-MM-dd_HH-mm,SSS}.log">
+            <PatternLayout pattern="%d %p %c{1.} [%t] %m%n"/>
+            <Filters>
+                <ThresholdFilter level="NOTICE" onMatch="DENY" onMismatch="ACCEPT"/>
+            </Filters>
+        </File>
+    </Appenders>
+    <Loggers>
+        <Root level="all">
+            <AppenderRef ref="console"/>
+            <AppenderRef ref="file"/>
+        </Root>
+        <Logger name="de.gugorrex" level="error" additivity="true">
+            <AppenderRef ref="gui"/>
+        </Logger>
+    </Loggers>
+</Configuration>
